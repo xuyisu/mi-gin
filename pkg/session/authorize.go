@@ -24,11 +24,13 @@ func Authorize() gin.HandlerFunc {
 		if hasSuffix {
 			authorization := c.GetHeader(lib.Authorization)
 			if authorization == "" {
+				// 验证不通过，不再调用后续的函数处理
 				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": lib.NotLogin, "msg": "请重新登录"})
 				return
 			} else {
 				userRedis := Get(lib.UserLoginToken + authorization)
 				if userRedis == "" {
+					// 验证不通过，不再调用后续的函数处理
 					c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"code": lib.NotLogin, "msg": "请重新登录"})
 					return
 				} else {
@@ -42,7 +44,7 @@ func Authorize() gin.HandlerFunc {
 			}
 
 		} else {
-			// 验证不通过，不再调用后续的函数处理
+			// 通过
 			c.Next()
 		}
 	}

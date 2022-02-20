@@ -96,8 +96,8 @@ func (m *Cart) Delete() (err error) {
 }
 
 //查询当前用户购物车数量
-func (m *Cart) GetCartCount() (c uint) {
+func (m *Cart) GetCartCount(userId uint64) (c uint) {
 	var count uint
-	mysqlDB.Model(m).Where("delete_flag =? and user_id=?", lib.Zero, lib.DeFaultUser).Count(&count)
+	mysqlDB.Model(m).Where("delete_flag =? and user_id=?", lib.Zero, userId).Count(&count)
 	return count
 }

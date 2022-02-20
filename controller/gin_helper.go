@@ -4,8 +4,10 @@ import (
 	"errors"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 	"go-gin/models"
 	"go-gin/pkg/lib"
+	"go-gin/pkg/session"
 	"strconv"
 	"time"
 )
@@ -35,6 +37,17 @@ func handleError(c *gin.Context, err error) bool {
 		return true
 	}
 	return false
+}
+
+func getLoginUser(c *gin.Context) models.LoginUser {
+	authorization := c.GetHeader(lib.Authorization)
+	loginUser, _ := session.GlobalMap.Load(authorization)
+	if loginUser != nil {
+		return loginUser.(models.LoginUser)
+	} else {
+		logrus.Error("未获取到用户")
+		return models.LoginUser{}
+	}
 }
 
 func parseParamID(c *gin.Context) (uint64, error) {

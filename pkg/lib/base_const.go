@@ -14,9 +14,6 @@ const One = 1
 //默认限制100
 const DefaultLimit = 100
 
-//默认用户id
-const DeFaultUser = 1
-
 const Success = 200
 
 const Error = 500

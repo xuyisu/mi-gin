@@ -139,12 +139,7 @@ func login(c *gin.Context) {
 
 //getUser
 func getUser(c *gin.Context) {
-	//todo 从缓存里面取
-	var userReq models.User
-	userReq.DeleteFlag = 0
-	userReq.Status = lib.One
-	userRes, _ := userReq.One()
-	//userRes, _ := session.GlobalMap.Load(c.GetHeader(lib.Authorization))
+	userRes, _ := session.GlobalMap.Load(c.GetHeader(lib.Authorization))
 	jsonData(c, userRes)
 }
 

@@ -19,6 +19,7 @@ func init() {
 
 //All
 func orderInfoAll(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	orderInfoReq := models.OrderInfo{}
 	query := &models.PaginationQuery{}
 	err := c.ShouldBindQuery(query)
@@ -26,7 +27,7 @@ func orderInfoAll(c *gin.Context) {
 		return
 	}
 	var orderInfoVos []models.OrderInfoVo
-	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.Itoa(lib.DeFaultUser))
+	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	query.Order = "id desc"
 	list, total, err := orderInfoReq.All(query)
 	if total > lib.Zero {
@@ -37,7 +38,7 @@ func orderInfoAll(c *gin.Context) {
 			var orderDetailReq models.OrderDetail
 			orderQuery := &models.PaginationQuery{}
 			orderQuery.Limit = lib.DefaultLimit
-			orderQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s,order_no:%s", strconv.Itoa(lib.DeFaultUser), orderRes.OrderNo)
+			orderQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s,order_no:%s", strconv.FormatInt(int64(loginUser.Id), 10), orderRes.OrderNo)
 			orderDetailList, total, _ := orderDetailReq.All(orderQuery)
 			if total > lib.Zero {
 				orderInfoVo.Details = *orderDetailList
@@ -50,6 +51,7 @@ func orderInfoAll(c *gin.Context) {
 
 //One
 func orderInfoOne(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	var orderInfoReq models.OrderInfo
 	orderNo, _ := parseParamOrderNo(c)
 	orderInfoReq.OrderNo = orderNo
@@ -66,7 +68,7 @@ func orderInfoOne(c *gin.Context) {
 	orderDetailReq.OrderNo = orderNo
 	orderQuery := &models.PaginationQuery{}
 	orderQuery.Limit = lib.DefaultLimit
-	orderQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.Itoa(lib.DeFaultUser))
+	orderQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	all, total, _ := orderDetailReq.All(orderQuery)
 	if total > 0 {
 		orderInfoVo.Details = *all
@@ -76,6 +78,7 @@ func orderInfoOne(c *gin.Context) {
 
 //Create
 func orderInfoCreate(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	var orderInfoReq models.OrderInfo
 	err := c.ShouldBind(&orderInfoReq)
 	if handleError(c, err) {
@@ -96,7 +99,7 @@ func orderInfoCreate(c *gin.Context) {
 	var cartReq models.Cart
 	cartQuery := &models.PaginationQuery{}
 	cartQuery.Limit = lib.DefaultLimit
-	cartQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.Itoa(lib.DeFaultUser))
+	cartQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	cartList, total, err := cartReq.All(cartQuery)
 	if total == 0 {
 		jsonError(c, "恭喜您的购物车已经被清空了，再加一车吧")
@@ -134,14 +137,14 @@ func orderInfoCreate(c *gin.Context) {
 		orderDetail.Status = lib.PaymentStatueUnPay
 		orderDetail.StatusDesc = lib.PaymentStatueUnPayDesc
 		orderDetail.TotalPrice = cart.ProductTotalPrice
-		orderDetail.UserId = lib.DeFaultUser
-		orderDetail.CreateUser = lib.DeFaultUser
+		orderDetail.UserId = loginUser.Id
+		orderDetail.CreateUser = loginUser.Id
 		totalOrderPrice = totalOrderPrice.Add(decimal.NewFromFloat(orderDetail.TotalPrice))
 		orderDetail.Create()
 		//更新购物车
 		cart.DeleteFlag = lib.One
 		cart.UpdateTime = &now
-		cart.UpdateUser = lib.DeFaultUser
+		cart.UpdateUser = loginUser.Id
 		cart.Update()
 		//设置订单状态记录
 		statusRecordReq := models.OrderStatusRecord{
@@ -170,8 +173,8 @@ func orderInfoCreate(c *gin.Context) {
 		Street:          addressRes.Street,
 		Status:          lib.PaymentStatueUnPay,
 		StatusDesc:      lib.PaymentStatueUnPayDesc,
-		CreateUser:      lib.DeFaultUser,
-		UserId:          lib.DeFaultUser,
+		CreateUser:      loginUser.Id,
+		UserId:          loginUser.Id,
 	}
 
 	err = orderInfoReq.Create()
@@ -183,6 +186,7 @@ func orderInfoCreate(c *gin.Context) {
 
 //Update
 func orderInfoPay(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	var pay models.PayReq
 	err := c.ShouldBind(&pay)
 	if handleError(c, err) {
@@ -193,7 +197,7 @@ func orderInfoPay(c *gin.Context) {
 	orderInfoReq.DeleteFlag = lib.Zero
 	orderInfoRes, _ := orderInfoReq.One()
 	if orderInfoRes != nil {
-		if orderInfoRes.UserId != lib.DeFaultUser {
+		if orderInfoRes.UserId != loginUser.Id {
 			jsonError(c, "您无权查询他人订单")
 			return
 		}
@@ -213,14 +217,14 @@ func orderInfoPay(c *gin.Context) {
 		var orderDetailReq models.OrderDetail
 		orderQuery := &models.PaginationQuery{}
 		orderQuery.Limit = lib.DefaultLimit
-		orderQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s,order_no:%s", strconv.Itoa(lib.DeFaultUser), orderInfoRes.OrderNo)
+		orderQuery.Where = fmt.Sprintf("delete_flag:0,user_id:%s,order_no:%s", strconv.FormatInt(int64(loginUser.Id), 10), orderInfoRes.OrderNo)
 		all, total, _ := orderDetailReq.All(orderQuery)
 		if total > 0 {
 			orderDetailList := *all
 			for _, detail := range orderDetailList {
 				detail.Status = lib.PaymentStatuePay
 				detail.StatusDesc = lib.PaymentStatuePayDesc
-				detail.UpdateUser = lib.DeFaultUser
+				detail.UpdateUser = loginUser.Id
 				err := detail.Update()
 				if handleError(c, err) {
 					return

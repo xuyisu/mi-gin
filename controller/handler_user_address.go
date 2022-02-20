@@ -20,6 +20,7 @@ func init() {
 
 //All
 func userAddressAll(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	size := c.Query("size")
 	sizeUint, _ := strconv.ParseUint(size, 10, 64)
 	mdl := models.UserAddress{}
@@ -28,7 +29,7 @@ func userAddressAll(c *gin.Context) {
 	if handleError(c, err) {
 		return
 	}
-	query.Where = fmt.Sprintf("delete_flag:0,create_user:%s", strconv.Itoa(lib.DeFaultUser))
+	query.Where = fmt.Sprintf("delete_flag:0,create_user:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	query.Order = "id desc"
 	query.Limit = uint(sizeUint)
 	list, total, err := mdl.All(query)
@@ -56,6 +57,7 @@ func userAddressOne(c *gin.Context) {
 
 //Create
 func userAddressCreate(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	var addressReq models.UserAddress
 	err := c.ShouldBind(&addressReq)
 	if handleError(c, err) {
@@ -67,9 +69,9 @@ func userAddressCreate(c *gin.Context) {
 	addressReq.AddressId = uint64(worker.GetId())
 	now := time.Now()
 	addressReq.UpdateTime = &now
-	addressReq.UpdateUser = lib.DeFaultUser
+	addressReq.UpdateUser = loginUser.Id
 	addressReq.CreateTime = &now
-	addressReq.CreateUser = lib.DeFaultUser
+	addressReq.CreateUser = loginUser.Id
 
 	err = addressReq.Create()
 	if handleError(c, err) {

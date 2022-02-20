@@ -23,10 +23,11 @@ func init() {
 
 //All
 func cartAll(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	mdl := models.Cart{}
 	query := &models.PaginationQuery{}
 	query.Limit = lib.DefaultLimit
-	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.Itoa(lib.DeFaultUser))
+	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	err := c.ShouldBindQuery(query)
 	if handleError(c, err) {
 		return
@@ -149,12 +150,13 @@ func cartDelete(c *gin.Context) {
 //查询购物车数量
 func cartCount(c *gin.Context) {
 	var mdl models.Cart
-	count := mdl.GetCartCount()
+	count := mdl.GetCartCount(getLoginUser(c).Id)
 	jsonData(c, count)
 }
 
 // 购物车添加
 func cartAdd(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	var v models.Cart
 	err := c.ShouldBind(&v)
 	if handleError(c, err) {
@@ -194,9 +196,9 @@ func cartAdd(c *gin.Context) {
 			v.ActivityId = activityRes.ActivityId
 		}
 		v.Selected = lib.One
-		v.CreateUser = lib.DeFaultUser
-		v.UserId = lib.DeFaultUser
-		v.UpdateUser = lib.DeFaultUser
+		v.CreateUser = loginUser.Id
+		v.UserId = loginUser.Id
+		v.UpdateUser = loginUser.Id
 		now := time.Now()
 		v.CreateTime = &now
 		v.UpdateTime = &now
@@ -216,17 +218,18 @@ func cartAdd(c *gin.Context) {
 			return
 		}
 	}
-	jsonData(c, v.GetCartCount())
+	jsonData(c, v.GetCartCount(loginUser.Id))
 
 }
 
 func unSelectAll(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	mdl := models.Cart{}
-	mdl.UserId = lib.DeFaultUser
+	mdl.UserId = loginUser.Id
 	mdl.DeleteFlag = lib.Zero
 	query := &models.PaginationQuery{}
 	query.Limit = lib.DefaultLimit
-	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.Itoa(lib.DeFaultUser))
+	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	query.Order = "id desc"
 	err := c.ShouldBindQuery(query)
 	if handleError(c, err) {
@@ -237,7 +240,7 @@ func unSelectAll(c *gin.Context) {
 		carts := *cartList
 		for _, cart := range carts {
 			cart.Selected = lib.FOne
-			cart.UpdateUser = lib.DeFaultUser
+			cart.UpdateUser = loginUser.Id
 			now := time.Now()
 			cart.UpdateTime = &now
 			cart.Update()
@@ -248,12 +251,13 @@ func unSelectAll(c *gin.Context) {
 }
 
 func selectAll(c *gin.Context) {
+	loginUser := getLoginUser(c)
 	mdl := models.Cart{}
-	mdl.UserId = lib.DeFaultUser
+	mdl.UserId = loginUser.Id
 	mdl.DeleteFlag = lib.Zero
 	query := &models.PaginationQuery{}
 	query.Limit = lib.DefaultLimit
-	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.Itoa(lib.DeFaultUser))
+	query.Where = fmt.Sprintf("delete_flag:0,user_id:%s", strconv.FormatInt(int64(loginUser.Id), 10))
 	err := c.ShouldBindQuery(query)
 	if handleError(c, err) {
 		return
@@ -263,7 +267,7 @@ func selectAll(c *gin.Context) {
 		carts := *cartList
 		for _, cart := range carts {
 			cart.Selected = lib.One
-			cart.UpdateUser = lib.DeFaultUser
+			cart.UpdateUser = loginUser.Id
 			now := time.Now()
 			cart.UpdateTime = &now
 			cart.Update()
