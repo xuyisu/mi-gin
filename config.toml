@@ -1,0 +1,28 @@
+[app]
+    name = "go-gin"
+    addr ="localhost:8081"
+    secret = "qazwsxecd"
+    env = "local" # only allows local/dev/test/prod
+    log_level = "debug" # only allows debug info warn error fatal panic
+    enable_not_found = true # if true and static_path is not empty string, all not found route will serve static/index.html
+    enable_swagger = false
+    enable_cors = true  # true will case 403 error in swaggerUI  may cause api perform decrease
+    enable_sql_log = true # show gorm sql in terminal
+    enable_https = false # if addr is a domain enable_https will works
+    enable_cron = false # is enable buildin schedule job
+    time_zone = "Asia/Shanghai"
+    api_prefix = "" #  api_prefix could be empty string,            the api uri will be api/v1/resource
+    static_path = "./static/"  # path must be an absolute path or relative to the go-build-executable file, may cause api perform decrease
+    mem_expire_min = 60 # memory cache expire in 60 minutes
+    mem_max_count = 1024000 # memory cache maxium store count
+[mysql]
+    addr = "127.0.0.1:3306"
+    user = "root"
+    password = "123456"
+    database = "mi-mall"
+    charset = "utf8mb4"
+[redis]
+    addr = "127.0.0.1:6379" # 127.0.0.1:6379 empty string will not init the redis db in models package
+    password = "123456"
+    db_idx = 0
+    session_expire = 3600

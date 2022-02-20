@@ -1,0 +1,2212 @@
+swagger: "2.0"
+info:
+  description: "A GinBro RESTful APIs"
+  version: "1.0.0"
+  title: "GinBro RESTful APIs Application"
+host: "127.0.0.1:8082"
+basePath: "/api/v1"
+
+schemes:
+- "http"
+paths:
+  
+  
+  /activity:
+    get:
+      tags:
+      - "activity"
+      summary: "get all activity by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ActivityPagination"
+    post:
+      tags:
+      - "activity"
+      summary: "create activity"
+      description: "create activity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create activity"
+        required: true
+        schema:
+          $ref: "#/definitions/Activity"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "activity"
+      summary: "update activity"
+      description: "update activity"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create activity"
+        required: true
+        schema:
+          $ref: "#/definitions/Activity"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /activity/{Id}:
+    get:
+      tags:
+      - "activity"
+      summary: "get a activity by ID"
+      description: "get a activity by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of activity to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Activity"
+    delete:
+      tags:
+      - "activity"
+      summary: "Destroy a activity by ID"
+      description: "delete a activity by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of activity to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /cart:
+    get:
+      tags:
+      - "cart"
+      summary: "get all cart by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CartPagination"
+    post:
+      tags:
+      - "cart"
+      summary: "create cart"
+      description: "create cart"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create cart"
+        required: true
+        schema:
+          $ref: "#/definitions/Cart"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "cart"
+      summary: "update cart"
+      description: "update cart"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create cart"
+        required: true
+        schema:
+          $ref: "#/definitions/Cart"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /cart/{Id}:
+    get:
+      tags:
+      - "cart"
+      summary: "get a cart by ID"
+      description: "get a cart by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of cart to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Cart"
+    delete:
+      tags:
+      - "cart"
+      summary: "Destroy a cart by ID"
+      description: "delete a cart by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of cart to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /category:
+    get:
+      tags:
+      - "category"
+      summary: "get all category by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CategoryPagination"
+    post:
+      tags:
+      - "category"
+      summary: "create category"
+      description: "create category"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create category"
+        required: true
+        schema:
+          $ref: "#/definitions/Category"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "category"
+      summary: "update category"
+      description: "update category"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create category"
+        required: true
+        schema:
+          $ref: "#/definitions/Category"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /category/{Id}:
+    get:
+      tags:
+      - "category"
+      summary: "get a category by ID"
+      description: "get a category by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of category to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Category"
+    delete:
+      tags:
+      - "category"
+      summary: "Destroy a category by ID"
+      description: "delete a category by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of category to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /order-detail:
+    get:
+      tags:
+      - "order-detail"
+      summary: "get all order-detail by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrderDetailPagination"
+    post:
+      tags:
+      - "order-detail"
+      summary: "create order-detail"
+      description: "create order-detail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create order-detail"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderDetail"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "order-detail"
+      summary: "update order-detail"
+      description: "update order-detail"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create order-detail"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderDetail"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /order-detail/{Id}:
+    get:
+      tags:
+      - "order-detail"
+      summary: "get a order-detail by ID"
+      description: "get a order-detail by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of order-detail to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OrderDetail"
+    delete:
+      tags:
+      - "order-detail"
+      summary: "Destroy a order-detail by ID"
+      description: "delete a order-detail by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of order-detail to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /order-info:
+    get:
+      tags:
+      - "order-info"
+      summary: "get all order-info by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrderInfoPagination"
+    post:
+      tags:
+      - "order-info"
+      summary: "create order-info"
+      description: "create order-info"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create order-info"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderInfo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "order-info"
+      summary: "update order-info"
+      description: "update order-info"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create order-info"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderInfo"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /order-info/{Id}:
+    get:
+      tags:
+      - "order-info"
+      summary: "get a order-info by ID"
+      description: "get a order-info by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of order-info to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OrderInfo"
+    delete:
+      tags:
+      - "order-info"
+      summary: "Destroy a order-info by ID"
+      description: "delete a order-info by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of order-info to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /order-status-record:
+    get:
+      tags:
+      - "order-status-record"
+      summary: "get all order-status-record by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/OrderStatusRecordPagination"
+    post:
+      tags:
+      - "order-status-record"
+      summary: "create order-status-record"
+      description: "create order-status-record"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create order-status-record"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderStatusRecord"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "order-status-record"
+      summary: "update order-status-record"
+      description: "update order-status-record"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create order-status-record"
+        required: true
+        schema:
+          $ref: "#/definitions/OrderStatusRecord"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /order-status-record/{Id}:
+    get:
+      tags:
+      - "order-status-record"
+      summary: "get a order-status-record by ID"
+      description: "get a order-status-record by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of order-status-record to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/OrderStatusRecord"
+    delete:
+      tags:
+      - "order-status-record"
+      summary: "Destroy a order-status-record by ID"
+      description: "delete a order-status-record by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of order-status-record to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /product:
+    get:
+      tags:
+      - "product"
+      summary: "get all product by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ProductPagination"
+    post:
+      tags:
+      - "product"
+      summary: "create product"
+      description: "create product"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create product"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "product"
+      summary: "update product"
+      description: "update product"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create product"
+        required: true
+        schema:
+          $ref: "#/definitions/Product"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /product/{Id}:
+    get:
+      tags:
+      - "product"
+      summary: "get a product by ID"
+      description: "get a product by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of product to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Product"
+    delete:
+      tags:
+      - "product"
+      summary: "Destroy a product by ID"
+      description: "delete a product by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of product to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /user:
+    get:
+      tags:
+      - "user"
+      summary: "get all user by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UserPagination"
+    post:
+      tags:
+      - "user"
+      summary: "create user"
+      description: "create user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "user"
+      summary: "update user"
+      description: "update user"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user"
+        required: true
+        schema:
+          $ref: "#/definitions/User"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /user/{Id}:
+    get:
+      tags:
+      - "user"
+      summary: "get a user by ID"
+      description: "get a user by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of user to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/User"
+    delete:
+      tags:
+      - "user"
+      summary: "Destroy a user by ID"
+      description: "delete a user by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of user to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+  
+  /user-address:
+    get:
+      tags:
+      - "user-address"
+      summary: "get all user-address by pagination"
+      description: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "where"
+        in: "query"
+        description: "column:value will use sql LIKE for search eg:id:67 will where id >67 eg2: name:eric => where name LIKE '%eric%'"
+        required: false
+        type: "array"
+        items:
+          type: "string"
+      - name: "fields"
+        in: "query"
+        description: "{$tableColumn},{$tableColumn}... "
+        required: false
+        type: "string"
+      - name: "order"
+        in: "query"
+        description: "eg: id desc, name desc"
+        required: false
+        type: "string"
+      - name: "offset"
+        in: "query"
+        description: "sql offset eg: 10"
+        required: false
+        type: "integer"
+      - name: "limit"
+        in: "query"
+        default: "2"
+        description: "limit returning object count"
+        required: false
+        type: "integer"
+
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/UserAddressPagination"
+    post:
+      tags:
+      - "user-address"
+      summary: "create user-address"
+      description: "create user-address"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user-address"
+        required: true
+        schema:
+          $ref: "#/definitions/UserAddress"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+    patch:
+      tags:
+      - "user-address"
+      summary: "update user-address"
+      description: "update user-address"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "create user-address"
+        required: true
+        schema:
+          $ref: "#/definitions/UserAddress"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+
+  /user-address/{Id}:
+    get:
+      tags:
+      - "user-address"
+      summary: "get a user-address by ID"
+      description: "get a user-address by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of user-address to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/UserAddress"
+    delete:
+      tags:
+      - "user-address"
+      summary: "Destroy a user-address by ID"
+      description: "delete a user-address by ID"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "Id"
+        in: "path"
+        description: "ID of user-address to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+  
+
+
+definitions:
+  
+  
+  Activity:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      activity_id:
+        type: "integer"
+        description: "活动id"
+        format: "int64"
+      
+      name:
+        type: "string"
+        description: "活动名称"
+        format: "string"
+      
+      status:
+        type: "integer"
+        description: "活动状态"
+        format: "int64"
+      
+      main_image:
+        type: "string"
+        description: "活动图片地址"
+        format: "string"
+      
+      start_time:
+        type: "string"
+        description: "开始时间"
+        format: "date-time"
+      
+      end_time:
+        type: "string"
+        description: "结束时间"
+        format: "date-time"
+      
+  ActivityPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Activity"
+
+  
+  Cart:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      user_id:
+        type: "integer"
+        description: "用户id"
+        format: "int64"
+      
+      activity_id:
+        type: "integer"
+        description: "活动id"
+        format: "int64"
+      
+      activity_name:
+        type: "string"
+        description: "活动名称"
+        format: "string"
+      
+      product_id:
+        type: "integer"
+        description: "商品id"
+        format: "int64"
+      
+      product_name:
+        type: "string"
+        description: "商品名称"
+        format: "string"
+      
+      product_subtitle:
+        type: "string"
+        description: "商品简要描述"
+        format: "string"
+      
+      product_main_image:
+        type: "string"
+        description: "商品图片地址"
+        format: "string"
+      
+      quantity:
+        type: "integer"
+        description: "数量"
+        format: "int32"
+      
+      product_unit_price:
+        type: "number"
+        description: "单价"
+        format: "float"
+      
+      selected:
+        type: "integer"
+        description: "是否已选择 1是 0 否"
+        format: "int64"
+      
+      product_total_price:
+        type: "number"
+        description: "总价格"
+        format: "float"
+      
+  CartPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Cart"
+
+  
+  Category:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      parent_id:
+        type: "integer"
+        description: "父id"
+        format: "int64"
+      
+      name:
+        type: "string"
+        description: "名称"
+        format: "string"
+      
+      status:
+        type: "integer"
+        description: "启用禁用状态 1启用 0禁用"
+        format: "int64"
+      
+      sort_order:
+        type: "integer"
+        description: "排序"
+        format: "int64"
+      
+  CategoryPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Category"
+
+  
+  OrderDetail:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      order_no:
+        type: "string"
+        description: "订单编号"
+        format: "string"
+      
+      order_detail_no:
+        type: "string"
+        description: "订单明细编号"
+        format: "string"
+      
+      activity_id:
+        type: "integer"
+        description: "活动id"
+        format: "int64"
+      
+      activity_name:
+        type: "string"
+        description: "活动名称"
+        format: "string"
+      
+      activity_main_image:
+        type: "string"
+        description: "活动图片地址"
+        format: "string"
+      
+      product_id:
+        type: "integer"
+        description: "商品id"
+        format: "int64"
+      
+      product_name:
+        type: "string"
+        description: "商品名称"
+        format: "string"
+      
+      product_main_image:
+        type: "string"
+        description: "商品图片地址"
+        format: "string"
+      
+      current_unit_price:
+        type: "number"
+        description: "单价"
+        format: "float"
+      
+      quantity:
+        type: "integer"
+        description: "数量"
+        format: "int64"
+      
+      total_price:
+        type: "number"
+        description: "总价"
+        format: "float"
+      
+      user_id:
+        type: "integer"
+        description: "购买人id"
+        format: "int64"
+      
+      status:
+        type: "integer"
+        description: "订单状态"
+        format: "int64"
+      
+      status_desc:
+        type: "string"
+        description: "状态描述"
+        format: "string"
+      
+      cancel_time:
+        type: "string"
+        description: "取消时间"
+        format: "date-time"
+      
+      cancel_reason:
+        type: "integer"
+        description: "取消原因"
+        format: "int64"
+      
+      send_time:
+        type: "string"
+        description: "发货时间"
+        format: "date-time"
+      
+      receive_time:
+        type: "string"
+        description: "签收时间"
+        format: "date-time"
+      
+  OrderDetailPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/OrderDetail"
+
+  
+  OrderInfo:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      order_no:
+        type: "string"
+        description: "订单编号"
+        format: "string"
+      
+      payment:
+        type: "number"
+        description: "支付金额"
+        format: "float"
+      
+      payment_type:
+        type: "integer"
+        description: "支付类型"
+        format: "int64"
+      
+      payment_type_desc:
+        type: "string"
+        description: "支付类型描述"
+        format: "string"
+      
+      postage:
+        type: "number"
+        description: "邮费"
+        format: "float"
+      
+      status:
+        type: "integer"
+        description: "订单状态"
+        format: "int64"
+      
+      status_desc:
+        type: "string"
+        description: "状态描述"
+        format: "string"
+      
+      payment_time:
+        type: "string"
+        description: "支付时间"
+        format: "date-time"
+      
+      address_id:
+        type: "integer"
+        description: "地址id"
+        format: "int64"
+      
+      receive_name:
+        type: "string"
+        description: "收货人"
+        format: "string"
+      
+      receive_phone:
+        type: "string"
+        description: "联系号码"
+        format: "string"
+      
+      province:
+        type: "string"
+        description: "省份"
+        format: "string"
+      
+      city:
+        type: "string"
+        description: "城市"
+        format: "string"
+      
+      area:
+        type: "string"
+        description: "区"
+        format: "string"
+      
+      street:
+        type: "string"
+        description: "详细地址"
+        format: "string"
+      
+      postal_code:
+        type: "string"
+        description: "邮编"
+        format: "string"
+      
+      user_id:
+        type: "integer"
+        description: "购买人id"
+        format: "int64"
+      
+  OrderInfoPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/OrderInfo"
+
+  
+  OrderStatusRecord:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      order_no:
+        type: "string"
+        description: "订单编号"
+        format: "string"
+      
+      order_detail_no:
+        type: "string"
+        description: "订单明细编号"
+        format: "string"
+      
+      product_id:
+        type: "integer"
+        description: "商品id"
+        format: "int64"
+      
+      product_name:
+        type: "string"
+        description: "商品名称"
+        format: "string"
+      
+      status:
+        type: "integer"
+        description: "订单状态"
+        format: "int64"
+      
+      status_desc:
+        type: "string"
+        description: "状态描述"
+        format: "string"
+      
+  OrderStatusRecordPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/OrderStatusRecord"
+
+  
+  Product:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      product_id:
+        type: "integer"
+        description: "商品id"
+        format: "int64"
+      
+      category_id:
+        type: "integer"
+        description: "品类id"
+        format: "int64"
+      
+      name:
+        type: "string"
+        description: "商品名称"
+        format: "string"
+      
+      sub_title:
+        type: "string"
+        description: "简要描述"
+        format: "string"
+      
+      main_image:
+        type: "string"
+        description: "商品图片地址"
+        format: "string"
+      
+      sub_images:
+        type: "string"
+        description: "子图片列表"
+        format: "string"
+      
+      activity_id:
+        type: "integer"
+        description: "活动id"
+        format: "int64"
+      
+      status:
+        type: "integer"
+        description: "商品状态"
+        format: "int64"
+      
+      price:
+        type: "number"
+        description: "商品单价"
+        format: "float"
+      
+      stock:
+        type: "integer"
+        description: "库存数"
+        format: "int64"
+      
+  ProductPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/Product"
+
+  
+  User:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      status:
+        type: "integer"
+        description: "启用标志"
+        format: "int64"
+      
+      user_name:
+        type: "string"
+        description: "用户名"
+        format: "string"
+      
+      email:
+        type: "string"
+        description: "邮箱"
+        format: "string"
+      
+      phone:
+        type: "string"
+        description: "手机号"
+        format: "string"
+      
+      password:
+        type: "string"
+        description: "密码"
+        format: "string"
+      
+  UserPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/User"
+
+  
+  UserAddress:
+    type: "object"
+    properties:
+    
+      id:
+        type: "integer"
+        description: "主键"
+        format: "int64"
+      
+      address_id:
+        type: "integer"
+        description: "地址id"
+        format: "int64"
+      
+      create_time:
+        type: "string"
+        description: "创建时间"
+        format: "date-time"
+      
+      update_time:
+        type: "string"
+        description: "更新时间"
+        format: "date-time"
+      
+      create_user:
+        type: "integer"
+        description: "创建人"
+        format: "int64"
+      
+      update_user:
+        type: "integer"
+        description: "更新人"
+        format: "int64"
+      
+      delete_flag:
+        type: "integer"
+        description: "删除标志"
+        format: "int64"
+      
+      default_flag:
+        type: "integer"
+        description: "默认标志"
+        format: "int64"
+      
+      receive_name:
+        type: "string"
+        description: "收货人"
+        format: "string"
+      
+      receive_phone:
+        type: "string"
+        description: "联系号码"
+        format: "string"
+      
+      province:
+        type: "string"
+        description: "省份"
+        format: "string"
+      
+      province_code:
+        type: "string"
+        description: "省份编码"
+        format: "string"
+      
+      city:
+        type: "string"
+        description: "城市"
+        format: "string"
+      
+      city_code:
+        type: "string"
+        description: "城市编码"
+        format: "string"
+      
+      area:
+        type: "string"
+        description: "区"
+        format: "string"
+      
+      area_code:
+        type: "string"
+        description: "区编码"
+        format: "string"
+      
+      street:
+        type: "string"
+        description: "详细地址"
+        format: "string"
+      
+      postal_code:
+        type: "string"
+        description: "邮编"
+        format: "string"
+      
+      address_label:
+        type: "integer"
+        description: "地址标签"
+        format: "int64"
+      
+  UserAddressPagination:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        description: "json repose code"
+        format: "int32"
+      total:
+        type: "integer"
+        description: "total numbers"
+        format: "int32"
+      offset:
+        type: "integer"
+        description: "offset"
+        format: "int32"
+      limit:
+        type: "integer"
+        description: "limit"
+        format: "int32"
+      list:
+        type: "array"
+        items:
+          $ref: "#/definitions/UserAddress"
+
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      msg:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
