@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"github.com/jinzhu/gorm"
+	"go-gin/pkg/lib"
 	"reflect"
 	"strconv"
 	"strings"
@@ -46,7 +47,7 @@ func crudAll(m interface{}, q *PaginationQuery, list interface{}) (total uint, e
 }
 
 func crudOne(m interface{}, one interface{}) (err error) {
-	if mysqlDB.Where(m).Where("delete_flag=?", 0).First(one).RecordNotFound() {
+	if mysqlDB.Where(m).Where("delete_flag=?", lib.Zero).First(one).RecordNotFound() {
 		return errors.New("resource is not found")
 	}
 	return nil
