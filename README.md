@@ -91,45 +91,58 @@ go mod download
 
 ###### 5.启动
 
-切到命令行窗口，并输入 `bee run`，看到以下结果即代表启动成功
+在main.go文件中右键执行"run go build main.go"
 
 ```
-______
-| ___ \
-| |_/ /  ___   ___
-| ___ \ / _ \ / _ \
-| |_/ /|  __/|  __/
-\____/  \___| \___| v2.0.2
-2021/12/30 10:17:54 WARN     ▶ 0001 Running application outside of GOPATH
-2021/12/30 10:17:54 INFO     ▶ 0002 Using 'mi-beego' as 'appname'
-2021/12/30 10:17:54 INFO     ▶ 0003 Initializing watcher...
-mi-beego/pkg/utils
-mi-beego/pkg/lib
-mi-beego/pkg/log
-mi-beego/third_party/mysql
-mi-beego/third_party/swagger
-mi-beego/third_party/redis
-mi-beego/models
-mi-beego/pkg/filter
-mi-beego/controllers
-mi-beego/routers
-mi-beego
-2021/12/30 10:17:58 SUCCESS  ▶ 0004 Built Successfully!
-2021/12/30 10:17:58 INFO     ▶ 0005 Restarting 'mi-beego.exe'...
-2021/12/30 10:17:58 SUCCESS  ▶ 0006 './mi-beego.exe' is running...
-2021/12/30 10:17:58.768 [I] [parser.go:85]  D:\workspaces\mywork\gitee\mi-beego\controllers no changed
+[GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 
-2021/12/30 10:17:58.769 [I] [server.go:241]  http server Running on http://:8081
+[GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
+ - using env:	export GIN_MODE=release
+ - using code:	gin.SetMode(gin.ReleaseMode)
 
+[GIN-debug] GET    /app/info                 --> go-gin/controller.init.0.func2 (6 handlers)
+[GIN-debug] GET    /api/cart/list            --> go-gin/controller.cartAll (6 handlers)
+[GIN-debug] GET    /api/cart/:id             --> go-gin/controller.cartOne (6 handlers)
+[GIN-debug] PUT    /api/cart/:productId      --> go-gin/controller.cartUpdate (6 handlers)
+[GIN-debug] DELETE /api/cart/:productId      --> go-gin/controller.cartDelete (6 handlers)
+[GIN-debug] GET    /api/cart/sum             --> go-gin/controller.cartCount (6 handlers)
+[GIN-debug] POST   /api/cart/add             --> go-gin/controller.cartAdd (6 handlers)
+[GIN-debug] PUT    /api/cart/selectAll       --> go-gin/controller.selectAll (6 handlers)
+[GIN-debug] PUT    /api/cart/unSelectAll     --> go-gin/controller.unSelectAll (6 handlers)
+[GIN-debug] GET    /api/order/pages          --> go-gin/controller.orderInfoAll (6 handlers)
+[GIN-debug] GET    /api/order/:orderNo       --> go-gin/controller.orderInfoOne (6 handlers)
+[GIN-debug] POST   /api/order/create         --> go-gin/controller.orderInfoCreate (6 handlers)
+[GIN-debug] POST   /api/order/pay            --> go-gin/controller.orderInfoPay (6 handlers)
+[GIN-debug] GET    /api/product/pages        --> go-gin/controller.productAll (6 handlers)
+[GIN-debug] GET    /api/product/:productId   --> go-gin/controller.productOne (6 handlers)
+[GIN-debug] POST   /api/product              --> go-gin/controller.productCreate (6 handlers)
+[GIN-debug] PATCH  /api/product              --> go-gin/controller.productUpdate (6 handlers)
+[GIN-debug] DELETE /api/product/:id          --> go-gin/controller.productDelete (6 handlers)
+[GIN-debug] GET    /api/user                 --> go-gin/controller.userAll (6 handlers)
+[GIN-debug] GET    /api/user/:id             --> go-gin/controller.userOne (6 handlers)
+[GIN-debug] POST   /api/user                 --> go-gin/controller.userCreate (6 handlers)
+[GIN-debug] PUT    /api/user                 --> go-gin/controller.userUpdate (6 handlers)
+[GIN-debug] DELETE /api/user/:id             --> go-gin/controller.userDelete (6 handlers)
+[GIN-debug] POST   /api/user/login           --> go-gin/controller.login (6 handlers)
+[GIN-debug] GET    /api/user/getUser         --> go-gin/controller.getUser (6 handlers)
+[GIN-debug] POST   /api/user/logout          --> go-gin/controller.logout (6 handlers)
+[GIN-debug] GET    /api/address/pages        --> go-gin/controller.userAddressAll (6 handlers)
+[GIN-debug] GET    /api/address/:addressId   --> go-gin/controller.userAddressOne (6 handlers)
+[GIN-debug] POST   /api/address/add          --> go-gin/controller.userAddressCreate (6 handlers)
+[GIN-debug] PUT    /api/address/:addressId   --> go-gin/controller.userAddressUpdate (6 handlers)
+[GIN-debug] DELETE /api/address/:addressId   --> go-gin/controller.userAddressDelete (6 handlers)
+[GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
+Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
+[GIN-debug] Listening and serving HTTP on localhost:8081
+2022/02/20 16:45:20 visit http://localhost:8081/swagger for RESTful APIs Document
+2022/02/20 16:45:20 visit http://localhost:8081/ for front-end static html files
+2022/02/20 16:45:20 visit http://localhost:8081/app/info for app info only on not-prod mode
 ```
 
-浏览器输入 http://127.0.0.1:8081/swagger
-
-![image-20211230102018377](doc/images/swagger.png)
 
 ## 前端启动
 
-项目地址https://gitee.com/gitxys/mi_vue
+项目地址
 
 [代码地址Gitee](https://gitee.com/gitxys/mi_vue)
 
